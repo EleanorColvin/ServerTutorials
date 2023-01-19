@@ -53,8 +53,7 @@ app.put('/api/courses/:id', (req,res)=>{
         res.status(404).send("The course with the given ID was not found");
         return
     }
-        //update the course
-        //return the updated course
+        res.send(course);
     });    
 
 // DELETE requests
@@ -64,7 +63,8 @@ app.delete('/api/courses/:id', (req, res) => {
         res.status(404).send("The course with the given ID was not found");
         return
     }
-    // Use indexOf() of and splice() methods to delete the coourse by index
+    course.name = req.body.name;
+    // Use indexOf() of and splice() methods to delete the course by index
     res.send(course);
 })
 
