@@ -28,46 +28,48 @@ app.get('/api/courses/:id', (req, res) => {
 // http POST requests
 app.post('/api/courses', (req, res) => {
     const name = req.body.name;
-     if(name.length <= 3)
-     {
-         res.status(404).send("The name of the course must be greater than 3 characters");
-         return
-     }
-     else
-     {
+    if (name.length <= 3) {
+        res.status(404).send("The name of the course must be greater than 3 characters");
+        return
+    }
+    else {
         const course = {
             id: courses.length + 1,
             name: name
         };
         courses.push(course);
         res.send(course);
-     }
+    }
 });
 
 // PUT Requests
-app.put('/api/courses/:id', (req,res)=>{
+app.put('/api/courses/:id', (req, res) => {
+    res.send(req.params);
     const course = courses.find(c => c.id === parseInt(req.params.id));
-        //Write the code in order to look up the course, if not existing return a 404
-        //otherwise 
-    if (!course) {
-        res.status(404).send("The course with the given ID was not found");
-        return
-    }
-        res.send(course);
-    });    
-
-// DELETE requests
-app.delete('/api/courses/:id', (req, res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id));
+    //Write the code in order to look up the course, if not existing return a 404
+    //otherwise 
     if (!course) {
         res.status(404).send("The course with the given ID was not found");
         return
     }
     course.name = req.body.name;
+    res.send(course);
+});
+
+// DELETE requests
+app.delete("/api/courses/:id", (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) {
+        res.status(404).send("The course with the given ID was not found.");
+        return
+    }
+    const index = courses.indexOf(course);
     // Use indexOf() of and splice() methods to delete the course by index
+
+    courses.splice(index, 1);
     res.send(course);
 })
 
 app.listen(3000, () => {
     console.log('Listening on port 3000')
-})
+});
