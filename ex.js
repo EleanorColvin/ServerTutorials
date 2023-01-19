@@ -27,17 +27,21 @@ app.get('/api/courses/:id', (req, res) => {
 
 // http POST requests
 app.post('/api/courses', (req, res) => {
-    /* if(req.body.name.length < 3)
+    const name = req.body.name;
+     if(name.length <= 3)
      {
          res.status(404).send("The name of the course must be greater than 3 characters");
          return
-     }*/
-    const course = {
-        id: courses.length + 1,
-        name: req.body.name
-    };
-    courses.push(course);
-    res.send(course);
+     }
+     else
+     {
+        const course = {
+            id: courses.length + 1,
+            name: name
+        };
+        courses.push(course);
+        res.send(course);
+     }
 });
 
 // PUT Requests
